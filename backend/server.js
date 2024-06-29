@@ -21,7 +21,6 @@ const server = app.listen(process.env.PORT || 4000, () => {
     console.log(`Server started at PORT:${process.env.PORT}`)
 })
 
-console.log(supernan)
 
 // Unhandled promise rejection
 process.on("unhandledRejection", (err) => {
