@@ -1,19 +1,19 @@
+const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const Product = require("../models/productModel");
 const ErrorHandler = require("../utils/errorHandler");
 
-
-// create Product
-async function handleCreateProduct(req, res, next) {
+// create Product -- Admin
+const handleCreateProduct = catchAsyncErrors(async (req, res, next) => {
     const product = await Product.create(req.body);
 
     res.status(201).json({
         success: true,
         product
     })
-}
+})
 
 
-async function handleGetAllProducts(req, res) {
+const handleGetAllProducts = catchAsyncErrors(async (req, res) => {
 
     const products = await Product.find();
 
@@ -21,20 +21,22 @@ async function handleGetAllProducts(req, res) {
         success: true,
         products
     })
-}
-async function handleGetProductById(req, res, next) {
+})
+const handleGetProductById = catchAsyncErrors(async (req, res, next) => {
+
     const product = await Product.findById(req.params.id);
     if (!product) {
-        return next(new ErrorHandler("Product not found.", 404));
+        return next(new ErrorHandler("Product NOT found.", 404));
     }
 
     res.status(200).json({
         success: true,
-        product
+        product,
     })
-}
+
+})
 // Update product by Id --Admin
-async function handleUpdateProduct(req, res) {
+const handleUpdateProduct = catchAsyncErrors(async (req, res) => {
     let product = Product.find(req.params.id);
 
     if (!product) {
@@ -52,8 +54,8 @@ async function handleUpdateProduct(req, res) {
         success: true,
         product
     })
-}
-async function handleDeleteProduct(req, res) {
+})
+const handleDeleteProduct = catchAsyncErrors(async (req, res) => {
     const product = await Product.findById(req.params.id);
     if (!product) {
         return res.status(500).json({
@@ -67,7 +69,8 @@ async function handleDeleteProduct(req, res) {
         success: true,
         message: "Product deleted successfully"
     })
-}
+})
+
 module.exports = {
     handleGetAllProducts,
     handleCreateProduct,
