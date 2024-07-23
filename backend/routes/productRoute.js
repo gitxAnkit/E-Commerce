@@ -4,11 +4,12 @@ const { handleGetAllProducts,
     handleUpdateProduct,
     handleDeleteProduct,
     handleGetProductById } = require('../controllers/productController');
+const { isAuthenticatedUser } = require('../middlewares/auth');
 
 const router = express.Router();
 
 router.route('/products')
-    .get(handleGetAllProducts);
+    .get(isAuthenticatedUser, handleGetAllProducts);
 
 router.route('/product/new')
     .post(handleCreateProduct);
