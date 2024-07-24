@@ -4,20 +4,20 @@ const { handleGetAllProducts,
     handleUpdateProduct,
     handleDeleteProduct,
     handleGetProductById } = require('../controllers/productController');
-const { isAuthenticatedUser } = require('../middlewares/auth');
+const { isAuthenticatedUser, authorizedRoles } = require('../middlewares/auth');
 
 const router = express.Router();
 
 router.route('/products')
-    .get(isAuthenticatedUser, handleGetAllProducts);
+    .get(handleGetAllProducts);
 
 router.route('/product/new')
-    .post(handleCreateProduct);
+    .post(isAuthenticatedUser, authorizedRoles("admin"), handleCreateProduct);
 
 router.route('/product/:id')
-    .get(handleGetProductById)
-    .put(handleUpdateProduct)
-    .delete(handleDeleteProduct);
+    .get(isAuthenticatedUser, authorizedRoles("admin"), handleGetProductById)
+    .put(isAuthenticatedUser, authorizedRoles("admin"), handleUpdateProduct)
+    .delete(isAuthenticatedUser, authorizedRoles("admin"), handleDeleteProduct);
 
 
-module.exports = router;
+module.exports = router; 
