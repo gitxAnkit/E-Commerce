@@ -22,17 +22,18 @@ class ErrorBoundary extends Component {
     console.error("ERROR BOUNDARY caught an error", error, errorInfo);
   }
 
-  handleReload = () => {
-    window.location.reload();
-  };
-
   render() {
     if (this.state.error) {
       return (
         <div style={{ padding: "2rem", textAlign: "center" }}>
           <h1>Something went wrong.</h1>
           <p>We apologize for the inconvenience.</p>
-          <button onClick={this.handleReload}>Reload Page</button>
+          <details style={{ whiteSpace: "pre-wrap", textAlign: "left" }}>
+            <summary>Click for error details</summary>
+            {this.state.error && this.state.error.toString()}
+            <br />
+            {this.state.errorInfo && this.state.errorInfo.componentStack}
+          </details>
         </div>
       );
     }

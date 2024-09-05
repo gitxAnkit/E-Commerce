@@ -1,16 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import {
-    productsSlice,
-    reviewSlice,
-    productReviewSlice,
-    newReviewSlice,
-    newProductSlice,
-    productDetailsSlice,
-} from './slices/product'; // Assuming the slices are in a subdirectory named "product"
-
-import cartSlice from './slices';
-import orderSlice from './slices';
-import userSlice from './slices';
+import productsSlice from './slices/product/productsSlice';
+import reviewSlice from './slices/product/reviewSlice';
+import productReviewSlice from './slices/product/productReviewSlice';
+import newReviewSlice from './slices/product/newReviewSlice';
+import newProductSlice from './slices/product/newProductSlice';
+import productDetailsSlice from './slices/product/productDetailsSlice';
+import cartSlice from './slices/cartSlice';
+import orderSlice from './slices/orderSlice';
+import userSlice from './slices/userSlice';
 
 const preloadedState = {
     cart: {
