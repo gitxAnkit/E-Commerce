@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Rating } from "@mui/lab";
+import { Rating } from "@mui/material";
 
 const ProductCard = ({ product }) => {
   const options = {
@@ -15,7 +15,6 @@ const ProductCard = ({ product }) => {
       <div>
         <Rating {...options} />{" "}
         <span className="productCardSpan">
-          {" "}
           ({product.numOfReviews} Reviews)
         </span>
       </div>

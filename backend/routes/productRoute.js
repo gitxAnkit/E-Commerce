@@ -22,7 +22,7 @@ router.route('/admin/product/:id')
     .delete(isAuthenticatedUser, authorizedRoles("admin"), handleDeleteProduct);
 
 router.route('/product/:id')
-    .get(isAuthenticatedUser, authorizedRoles("admin"), handleGetProductById);
+    .get(handleGetProductById);
 
 router.route("/review")
     .put(isAuthenticatedUser, createProductReview);

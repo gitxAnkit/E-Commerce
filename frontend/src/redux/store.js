@@ -22,14 +22,15 @@ const preloadedState = {
 
 const store = configureStore({
     reducer: {
-        products: productsSlice.reducer,
-        productReview: productReviewSlice.reducer,
-        productDetails: productDetailsSlice.reducer,
-        newReview: newReviewSlice.reducer,
-        newProduct: newProductSlice.reducer,
-        cart: cartSlice.reducer,
-        order: orderSlice.reducer,
-        user: userSlice.reducer,
+        products: productsSlice,
+        productReview: productReviewSlice,
+        productDetails: productDetailsSlice,
+        newReview: newReviewSlice,
+        newProduct: newProductSlice,
+        review: reviewSlice,
+        cart: cartSlice,
+        order: orderSlice,
+        user: userSlice,
     },
     devTools: process.env.NODE_ENV !== 'production',
     preloadedState,

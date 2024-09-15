@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import {
     productsRequest,
     allProductsSuccess,
@@ -51,13 +52,17 @@ import {
     clearErrors as clearProductDetailsErrors,
 } from '../redux/slices/product/productDetailsSlice';
 
+
+axios.defaults.withCredentials = true;
+
+const linkPrefix = `http://localhost:4000`;
 // Get All Products
 export const getProduct = (keyword = "", currentPage = 1, price = [0, 25000], category, ratings = 0) => async (dispatch) => {
     try {
         dispatch(productsRequest());
 
-        let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
-
+        // let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
+        let link = `${linkPrefix}/api/v1/products`;
         if (category) {
             link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
         }
@@ -75,7 +80,7 @@ export const getAdminProduct = () => async (dispatch) => {
     try {
         dispatch(productsRequest());
 
-        const { data } = await axios.get("/api/v1/admin/products");
+        const { data } = await axios.get(`${linkPrefix}/api/v1/admin/products`);
 
         dispatch(adminProductsSuccess(data.products));
     } catch (error) {
@@ -92,7 +97,7 @@ export const createProduct = (productData) => async (dispatch) => {
             headers: { "Content-Type": "application/json" },
         };
 
-        const { data } = await axios.post(`/api/v1/admin/product/new`, productData, config);
+        const { data } = await axios.post(`${linkPrefix}/api/v1/admin/product/new`, productData, config);
 
         dispatch(newProductSuccess(data));
     } catch (error) {
@@ -109,7 +114,7 @@ export const updateProduct = (id, productData) => async (dispatch) => {
             headers: { "Content-Type": "application/json" },
         };
 
-        const { data } = await axios.put(`/api/v1/admin/product/${id}`, productData, config);
+        const { data } = await axios.put(`${linkPrefix}/api/v1/admin/product/${id}`, productData, config);
 
         dispatch(updateProductSuccess(data.success));
     } catch (error) {
@@ -122,7 +127,7 @@ export const deleteProduct = (id) => async (dispatch) => {
     try {
         dispatch(productOperationRequest());
 
-        const { data } = await axios.delete(`/api/v1/admin/product/${id}`);
+        const { data } = await axios.delete(`${linkPrefix}/api/v1/admin/product/${id}`);
 
         dispatch(deleteProductSuccess(data.success));
     } catch (error) {
@@ -134,14 +139,16 @@ export const deleteProduct = (id) => async (dispatch) => {
 export const getProductDetails = (id) => async (dispatch) => {
     try {
         dispatch(productDetailsRequest());
-
-        const { data } = await axios.get(`/api/v1/product/${id}`);
-
+        const { data } = await axios.get(`${linkPrefix}/api/v1/product/${id}`);
         dispatch(productDetailsSuccess(data.product));
     } catch (error) {
-        dispatch(productDetailsFail(error.response.data.message));
+        const message = error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message; // Fallback for network errors or undefined response
+        dispatch(productDetailsFail(message));
     }
 };
+
 
 // NEW REVIEW
 export const newReview = (reviewData) => async (dispatch) => {
@@ -152,7 +159,7 @@ export const newReview = (reviewData) => async (dispatch) => {
             headers: { "Content-Type": "application/json" },
         };
 
-        const { data } = await axios.put(`/api/v1/review`, reviewData, config);
+        const { data } = await axios.put(`${linkPrefix}/api/v1/review`, reviewData, config);
 
         dispatch(newReviewSuccess(data.success));
     } catch (error) {
@@ -165,7 +172,7 @@ export const getAllReviews = (id) => async (dispatch) => {
     try {
         dispatch(allReviewRequest());
 
-        const { data } = await axios.get(`/api/v1/reviews?id=${id}`);
+        const { data } = await axios.get(`${linkPrefix}/api/v1/reviews?id=${id}`);
 
         dispatch(allReviewSuccess(data.reviews));
     } catch (error) {
@@ -178,7 +185,7 @@ export const deleteReviews = (reviewId, productId) => async (dispatch) => {
     try {
         dispatch(deleteReviewRequest());
 
-        const { data } = await axios.delete(`/api/v1/reviews?id=${reviewId}&productId=${productId}`);
+        const { data } = await axios.delete(`${linkPrefix}/api/v1/reviews?id=${reviewId}&productId=${productId}`);
 
         dispatch(deleteReviewSuccess(data.success));
     } catch (error) {

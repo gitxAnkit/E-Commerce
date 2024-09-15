@@ -19,8 +19,11 @@ const Home = () => {
       dispatch(clearErrors());
     }
     dispatch(getProduct());
-    console.log(products);
   }, [dispatch, error]);
+
+  useEffect(() => {
+    console.log("Products: ", products);
+  }, [products]);
 
   if (loading) {
     return <Loader />;

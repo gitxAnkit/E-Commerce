@@ -8,6 +8,8 @@ import Footer from "./component/layout/Footer/Footer";
 import Home from "./component/Home/Home";
 import ErrorBoundary from "./ErrorBoundary";
 import { HelmetProvider } from "react-helmet-async";
+import ProductDetails from "./component/Product/ProductDetails.jsx";
+
 const App = () => {
   useEffect(() => {
     WebFont.load({
@@ -24,6 +26,7 @@ const App = () => {
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/product/:id" element={<ProductDetails />} />
           </Routes>
           <Footer />
         </ErrorBoundary>
