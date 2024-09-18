@@ -85,7 +85,7 @@ const ProductDetails = () => {
       dispatch(clearErrors());
     }
     if (success) {
-      toast.success("Review Submitted Successfully");
+      toast.success("RevStatus:InStockiew Submitted Successfully");
       dispatch(resetNewReview());
     }
     dispatch(getProductDetails(id));
@@ -100,7 +100,7 @@ const ProductDetails = () => {
           <Loader />
         ) : product ? (
           <Fragment>
-            <MetaData title={`${product.name} -- ECOMMERCE`} />
+            <MetaData title={`${product.name}--Zenith Mart`} />
             <div className="ProductDetails">
               <ErrorBoundary>
                 <div>

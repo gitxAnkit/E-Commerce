@@ -31,7 +31,7 @@ const Home = () => {
 
   return (
     <>
-      <MetaData title="ECOMMERCE" />
+      <MetaData title="Zenith Mart" />
       <div className="banner">
         <p>Welcome to Zenith Mart</p>
         <h1>FIND AMAZING PRODUCTS BELOW</h1>
