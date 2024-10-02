@@ -16,24 +16,35 @@ const handleCreateProduct = catchAsyncErrors(async (req, res, next) => {
     })
 })
 
-
 const handleGetAllProducts = catchAsyncErrors(async (req, res) => {
 
-    const resultPerPage = 5;
+    const resultPerPage = 12;
     const productCount = await Product.countDocuments();
 
-    const apiFeature = new ApiFeatures(Product.find(), req.query)
+    // Get all filtered products (before applying pagination)
+    const apiFeatureForFiltering = new ApiFeatures(Product.find(), req.query)
+        .search()
+        .filter();
+
+    let filteredProducts = await apiFeatureForFiltering.query;
+
+    // Apply pagination
+    const apiFeatureWithPagination = new ApiFeatures(Product.find(), req.query)
         .search()
         .filter()
         .pagination(resultPerPage);
-    const products = await apiFeature.query;
+
+    const products = await apiFeatureWithPagination.query;
 
     res.status(200).json({
         success: true,
         products,
         productCount,
-    })
-})
+        filteredProductsCount: filteredProducts.length,  // This will give the correct count
+        resultPerPage,
+    });
+});
+
 const handleGetProductById = catchAsyncErrors(async (req, res, next) => {
 
     const product = await Product.findById(req.params.id);
