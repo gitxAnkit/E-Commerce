@@ -14,6 +14,7 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
         folder: "zenith-mart",
         crop: "scale",
         width: 150,
+        // height: 150,
     })
 
     const { name, email, password } = req.body;
