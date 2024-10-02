@@ -10,6 +10,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "../layout/Loader/Loader";
 import ErrorBoundary from "../../ErrorBoundary";
+import Resizer from "react-image-file-resizer";
 
 const LoginSignUp = () => {
   const dispatch = useDispatch();
@@ -53,16 +54,41 @@ const LoginSignUp = () => {
     dispatch(register(myForm));
   };
 
+  // const registerDataChange = (e) => {
+  //   if (e.target.name === "avatar") {
+  //     const reader = new FileReader();
+  //     reader.onload = () => {
+  //       if (reader.readyState === 2) {
+  //         setAvatarPreview(reader.result);
+  //         setAvatar(reader.result);
+  //       }
+  //     };
+  //     reader.readAsDataURL(e.target.files[0]);
+  //   } else {
+  //     setUser({ ...user, [e.target.name]: e.target.value });
+  //   }
+  // };
+  // resize image
   const registerDataChange = (e) => {
     if (e.target.name === "avatar") {
-      const reader = new FileReader();
-      reader.onload = () => {
-        if (reader.readyState === 2) {
-          setAvatarPreview(reader.result);
-          setAvatar(reader.result);
-        }
-      };
-      reader.readAsDataURL(e.target.files[0]);
+      const file = e.target.files[0];
+
+      // Resize the image to 150x150 pixels
+      if (file) {
+        Resizer.imageFileResizer(
+          file,
+          300, // maxWidth
+          300, // maxHeight
+          "JPEG", // output format
+          80, // quality
+          0, // rotation
+          (uri) => {
+            setAvatarPreview(uri);
+            setAvatar(uri);
+          },
+          "base64" // output type
+        );
+      }
     } else {
       setUser({ ...user, [e.target.name]: e.target.value });
     }
