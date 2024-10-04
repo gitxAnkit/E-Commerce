@@ -167,22 +167,40 @@ exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
 });
 // Update user profile
 exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
-    const newUserDetail = {
+    const newUserData = {
         name: req.body.name,
-        email: req.body.email
+        email: req.body.email,
+    };
+
+    if (req.body.avatar !== "") {
+        const user = await User.findById(req.user.id);
+
+        const imageId = user.avatar.public_id;
+
+        await cloudinary.uploader.destroy(imageId);
+
+        const myCloud = await cloudinary.uploader.upload(req.body.avatar, {
+            folder: "zenith-mart",
+            width: 150,
+            crop: "scale",
+        });
+
+        newUserData.avatar = {
+            public_id: myCloud.public_id,
+            url: myCloud.secure_url,
+        };
     }
-    // Add cloudinary later
 
-
-    const user = await User.findByIdAndUpdate(req.user.id, newUserDetail, {
+    await User.findByIdAndUpdate(req.user.id, newUserData, {
         new: true,
         runValidators: true,
-        useFindAndModify: false
+        useFindAndModify: false,
     });
+
     res.status(200).json({
         success: true,
     });
-})
+});
 // Get all users(admin)
 exports.getAllUser = catchAsyncErrors(async (req, res, next) => {
     const users = await User.find();
