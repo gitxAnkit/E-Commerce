@@ -15,6 +15,7 @@ import {
   Rating,
 } from "@mui/material";
 import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   clearErrors,
   getProductDetails,
@@ -22,6 +23,7 @@ import {
 } from "../../actions/productAction";
 import ErrorBoundary from "../../ErrorBoundary";
 import { useParams } from "react-router-dom";
+import { resetNewReview } from "../../redux/slices/product/newReviewSlice";
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
@@ -85,7 +87,7 @@ const ProductDetails = () => {
       dispatch(clearErrors());
     }
     if (success) {
-      toast.success("RevStatus:InStockiew Submitted Successfully");
+      toast.success("Review Submitted Successfully");
       dispatch(resetNewReview());
     }
     dispatch(getProductDetails(id));
@@ -94,7 +96,7 @@ const ProductDetails = () => {
   return (
     <ErrorBoundary>
       <Fragment>
-        <ToastContainer />
+        {/* <ToastContainer /> */}
 
         {loading ? (
           <Loader />

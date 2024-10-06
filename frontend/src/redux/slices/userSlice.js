@@ -82,12 +82,14 @@ const userSlice = createSlice({
         updateProfileSuccess: (state, action) => {
             state.loading = false;
             state.isUpdated = action.payload;
+            // state.isUpdated = true;
         },
         updateProfileFail: (state, action) => {
             state.loading = false;
             state.error = action.payload;
         },
         updateProfileReset: (state) => {
+            console.log("updateProfileReset triggered");
             state.isUpdated = false;
         },
 

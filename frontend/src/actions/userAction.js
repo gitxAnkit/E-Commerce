@@ -95,7 +95,6 @@ export const loadUser = () => async (dispatch) => {
 export const logout = () => async (dispatch) => {
     try {
         await axios.get(`${linkPrefix}/api/v1/logout`);
-
         dispatch(logoutSuccess());
     } catch (error) {
         dispatch(logoutFail(error.response.data.message));
@@ -110,7 +109,7 @@ export const updateProfile = (userData) => async (dispatch) => {
         const config = { headers: { "Content-Type": "multipart/form-data" } };
 
         const { data } = await axios.put(`${linkPrefix}/api/v1/me/update`, userData, config);
-
+        console.log("Data: ", data);
         dispatch(updateProfileSuccess(data.success));
     } catch (error) {
         dispatch(updateProfileFail(error.response.data.message));

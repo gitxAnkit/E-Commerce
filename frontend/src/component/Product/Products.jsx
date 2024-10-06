@@ -8,7 +8,7 @@ import Pagination from "@mui/material/Pagination";
 import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
 import MetaData from "../layout/MetaData";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import Box from "@mui/material/Box";
 import debounce from "lodash/debounce";
 import "./Products.css";
@@ -76,7 +76,6 @@ const Products = () => {
 
   return (
     <Fragment>
-      <ToastContainer />
       {loading ? (
         <Loader />
       ) : (

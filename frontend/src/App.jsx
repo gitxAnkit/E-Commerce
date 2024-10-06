@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import WebFont from "webfontloader";
+import axios from "axios";
 import Header from "./component/layout/Header/Header";
 import Footer from "./component/layout/Footer/Footer";
 import Home from "./component/Home/Home";
@@ -14,10 +15,26 @@ import Products from "./component/Product/Products.jsx";
 import Search from "./component/Product/Search.jsx";
 import LoginSignUp from "./component/User/LoginSignUp.jsx";
 import UserOptions from "./component/layout/Header/UserOptions.jsx";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import Profile from "./component/User/Profile.jsx";
+import ProtectedRoute from "./component/Route/ProtectedRoute.jsx";
+import {
+  loadUserRequest,
+  loadUserSuccess,
+  loadUserFail,
+} from "./redux/slices/userSlice.js";
+import UpdateProfile from "./component/User/UpdateProfile.jsx";
+import UpdatePassword from "./component/User/UpdatePassword.jsx";
+
+const linkPrefix = `http://localhost:4000`;
+
+// Configure axios defaults
+axios.defaults.withCredentials = true; // Added to handle cookies
+axios.defaults.baseURL = linkPrefix;
 
 const App = () => {
   const { user, isAuthenticated } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     WebFont.load({
@@ -26,6 +43,22 @@ const App = () => {
       },
     });
   }, []);
+
+  useEffect(() => {
+    const loadUser = async () => {
+      try {
+        dispatch(loadUserRequest());
+        const { data } = await axios.get("/api/v1/me");
+        dispatch(loadUserSuccess(data.user));
+      } catch (error) {
+        dispatch(
+          loadUserFail(error.response?.data?.message || "Failed to load user")
+        );
+      }
+    };
+
+    loadUser();
+  }, [dispatch]);
 
   return (
     <HelmetProvider>
@@ -38,17 +71,25 @@ const App = () => {
             <Route path="/product/:id" element={<ProductDetails />} />
             <Route path="/products" element={<Products />} />
             <Route path="/products/:keyword" element={<Products />} />
-            <Route path="/Search" element={<Search />} />
+            <Route path="/search" element={<Search />} />
 
+            {/* Protected Routes */}
+            <Route element={<ProtectedRoute />}>
+              <Route path="/account" element={<Profile />} />
+              <Route path="/me/update" element={<UpdateProfile />} />
+              <Route path="/password/update" element={<UpdatePassword />} />
+            </Route>
+
+            {/* Public Routes */}
             <Route path="/login" element={<LoginSignUp />} />
           </Routes>
           <Footer />
         </ErrorBoundary>
         <ToastContainer
-          position="bottom-center"
-          autoClose={5000}
+          position="top-right"
+          autoClose={2000}
           hideProgressBar={false}
-          newestOnTop={false}
+          newestOnTop
           closeOnClick
           rtl={false}
           pauseOnFocusLoss

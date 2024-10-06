@@ -128,7 +128,7 @@ const LoginSignUp = () => {
 
   return (
     <Fragment>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       {loading ? (
         <Loader />
       ) : (
