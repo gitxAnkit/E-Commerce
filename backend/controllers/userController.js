@@ -172,13 +172,17 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
         email: req.body.email,
     };
 
-    if (req.body.avatar !== "") {
+    // Check if the avatar is provided
+    if (req.body.avatar) {
         const user = await User.findById(req.user.id);
 
-        const imageId = user.avatar.public_id;
+        // If the user has an avatar, delete the old one
+        if (user.avatar) {
+            const imageId = user.avatar.public_id;
+            await cloudinary.uploader.destroy(imageId);
+        }
 
-        await cloudinary.uploader.destroy(imageId);
-
+        // Upload the new avatar
         const myCloud = await cloudinary.uploader.upload(req.body.avatar, {
             folder: "zenith-mart",
             width: 150,
@@ -191,6 +195,7 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
         };
     }
 
+    // Update user data in the database
     await User.findByIdAndUpdate(req.user.id, newUserData, {
         new: true,
         runValidators: true,
@@ -201,6 +206,7 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
         success: true,
     });
 });
+
 // Get all users(admin)
 exports.getAllUser = catchAsyncErrors(async (req, res, next) => {
     const users = await User.find();
