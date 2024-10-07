@@ -6,7 +6,7 @@ import LockOpenIcon from "@mui/icons-material/LockOpen";
 import FaceIcon from "@mui/icons-material/Face";
 import { useDispatch, useSelector } from "react-redux";
 import { clearUserErrors, login, register } from "../../actions/userAction";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "../layout/Loader/Loader";
 import ErrorBoundary from "../../ErrorBoundary";
@@ -53,21 +53,6 @@ const LoginSignUp = () => {
     myForm.set("avatar", avatar);
     dispatch(register(myForm));
   };
-
-  // const registerDataChange = (e) => {
-  //   if (e.target.name === "avatar") {
-  //     const reader = new FileReader();
-  //     reader.onload = () => {
-  //       if (reader.readyState === 2) {
-  //         setAvatarPreview(reader.result);
-  //         setAvatar(reader.result);
-  //       }
-  //     };
-  //     reader.readAsDataURL(e.target.files[0]);
-  //   } else {
-  //     setUser({ ...user, [e.target.name]: e.target.value });
-  //   }
-  // };
   // resize image
   const registerDataChange = (e) => {
     if (e.target.name === "avatar") {
@@ -128,7 +113,6 @@ const LoginSignUp = () => {
 
   return (
     <Fragment>
-      {/* <ToastContainer /> */}
       {loading ? (
         <Loader />
       ) : (

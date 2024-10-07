@@ -45,9 +45,7 @@ const UpdatePassword = () => {
       });
       toastShownRef.current = true;
       navigate("/account");
-      console.log("Before dispatch: ", isUpdated);
       dispatch(updatePasswordReset());
-      console.log("After dispatch: ", isUpdated);
     }
   }, [dispatch, error, navigate, isUpdated]);
 

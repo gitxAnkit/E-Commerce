@@ -25,6 +25,8 @@ import {
 } from "./redux/slices/userSlice.js";
 import UpdateProfile from "./component/User/UpdateProfile.jsx";
 import UpdatePassword from "./component/User/UpdatePassword.jsx";
+import ForgotPassword from "./component/User/ForgotPassword.jsx";
+import ResetPassword from "./component/User/ResetPassword.jsx";
 
 const linkPrefix = `http://localhost:4000`;
 
@@ -72,6 +74,9 @@ const App = () => {
             <Route path="/products" element={<Products />} />
             <Route path="/products/:keyword" element={<Products />} />
             <Route path="/search" element={<Search />} />
+            <Route path="/login" element={<LoginSignUp />} />
+            <Route path="/password/forgot" element={<ForgotPassword />} />
+            <Route path="/password/reset/:token" element={<ResetPassword />} />
 
             {/* Protected Routes */}
             <Route element={<ProtectedRoute />}>
@@ -79,16 +84,13 @@ const App = () => {
               <Route path="/me/update" element={<UpdateProfile />} />
               <Route path="/password/update" element={<UpdatePassword />} />
             </Route>
-
-            {/* Public Routes */}
-            <Route path="/login" element={<LoginSignUp />} />
           </Routes>
           <Footer />
         </ErrorBoundary>
         <ToastContainer
           position="top-right"
-          autoClose={2000}
-          hideProgressBar={false}
+          autoClose={4000}
+          hideProgressBar={true}
           newestOnTop
           closeOnClick
           rtl={false}
