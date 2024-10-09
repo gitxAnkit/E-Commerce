@@ -14,7 +14,7 @@ import {
   Button,
   Rating,
 } from "@mui/material";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
   clearErrors,
@@ -91,13 +91,11 @@ const ProductDetails = () => {
       dispatch(resetNewReview());
     }
     dispatch(getProductDetails(id));
-  }, [dispatch, id, error, alert, reviewError, success]);
+  }, [dispatch, id, error, reviewError, success]);
 
   return (
     <ErrorBoundary>
       <Fragment>
-        {/* <ToastContainer /> */}
-
         {loading ? (
           <Loader />
         ) : product ? (

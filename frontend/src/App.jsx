@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -18,15 +18,18 @@ import UserOptions from "./component/layout/Header/UserOptions.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import Profile from "./component/User/Profile.jsx";
 import ProtectedRoute from "./component/Route/ProtectedRoute.jsx";
-import {
-  loadUserRequest,
-  loadUserSuccess,
-  loadUserFail,
-} from "./redux/slices/userSlice.js";
+import { loadUser } from "./actions/userAction.js";
 import UpdateProfile from "./component/User/UpdateProfile.jsx";
 import UpdatePassword from "./component/User/UpdatePassword.jsx";
 import ForgotPassword from "./component/User/ForgotPassword.jsx";
 import ResetPassword from "./component/User/ResetPassword.jsx";
+import Cart from "./component/Cart/Cart.jsx";
+import Shipping from "./component/Cart/Shipping.jsx";
+import ConfirmOrder from "./component/Cart/ConfirmOrder.jsx";
+import Payment from "./component/Cart/Payment.jsx";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import store from "./redux/store.js";
 
 const linkPrefix = `http://localhost:4000`;
 
@@ -38,29 +41,24 @@ const App = () => {
   const { user, isAuthenticated } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
+  const [stripeApiKey, setStripeApiKey] = useState("");
+
+  const getStripeApiKey = async () => {
+    const { data } = await axios.get("/api/v1/stripeapikey");
+    setStripeApiKey(data.stripeApiKey);
+  };
+
   useEffect(() => {
     WebFont.load({
       google: {
         families: ["Roboto", "Droid Sans", "Chilanka"],
       },
     });
-  }, []);
-
-  useEffect(() => {
-    const loadUser = async () => {
-      try {
-        dispatch(loadUserRequest());
-        const { data } = await axios.get("/api/v1/me");
-        dispatch(loadUserSuccess(data.user));
-      } catch (error) {
-        dispatch(
-          loadUserFail(error.response?.data?.message || "Failed to load user")
-        );
-      }
-    };
-
-    loadUser();
+    dispatch(loadUser());
+    getStripeApiKey();
   }, [dispatch]);
+
+  window.addEventListener("contextmenu", (e) => e.preventDefault());
 
   return (
     <HelmetProvider>
@@ -83,14 +81,25 @@ const App = () => {
               <Route path="/account" element={<Profile />} />
               <Route path="/me/update" element={<UpdateProfile />} />
               <Route path="/password/update" element={<UpdatePassword />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/shipping" element={<Shipping />} />
+              <Route path="/order/confirm" element={<ConfirmOrder />} />
             </Route>
           </Routes>
+          {/* Move Elements wrapping here */}
+          {stripeApiKey && (
+            <Elements stripe={loadStripe(stripeApiKey)}>
+              <Routes>
+                <Route path="/process/payment" element={<Payment />} />
+              </Routes>
+            </Elements>
+          )}
           <Footer />
         </ErrorBoundary>
         <ToastContainer
           position="top-right"
           autoClose={4000}
-          hideProgressBar={true}
+          hideProgressBar
           newestOnTop
           closeOnClick
           rtl={false}
