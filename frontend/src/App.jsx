@@ -30,6 +30,8 @@ import Payment from "./component/Cart/Payment.jsx";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import store from "./redux/store.js";
+import OrderSuccess from "./component/Cart/OrderSuccess.jsx";
+import MyOrders from "./component/Order/MyOrders.jsx";
 
 const linkPrefix = `http://localhost:4000`;
 
@@ -84,6 +86,8 @@ const App = () => {
               <Route path="/cart" element={<Cart />} />
               <Route path="/shipping" element={<Shipping />} />
               <Route path="/order/confirm" element={<ConfirmOrder />} />
+              <Route path="/success" element={<OrderSuccess />} />
+              <Route path="/orders" element={<MyOrders />} />
             </Route>
           </Routes>
           {/* Move Elements wrapping here */}
