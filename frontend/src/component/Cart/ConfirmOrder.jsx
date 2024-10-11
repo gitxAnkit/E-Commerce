@@ -21,16 +21,16 @@ const ConfirmOrder = () => {
   const totalPrice = subtotal + tax + shippingCharges;
 
   const address = `${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.state}, ${shippingInfo.pinCode}, ${shippingInfo.country}`;
-
   const proceedToPayment = () => {
+    const userId = user._id;
     const data = {
       subtotal,
       shippingCharges,
       tax,
       totalPrice,
     };
-
-    sessionStorage.setItem("orderInfo", JSON.stringify(data));
+    console.log("ID:", userId);
+    sessionStorage.setItem(`orderInfo_${userId}`, JSON.stringify(data));
     navigate("/process/payment");
   };
 

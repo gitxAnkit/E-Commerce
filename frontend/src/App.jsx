@@ -32,6 +32,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import store from "./redux/store.js";
 import OrderSuccess from "./component/Cart/OrderSuccess.jsx";
 import MyOrders from "./component/Order/MyOrders.jsx";
+import OrderDetails from "./component/Order/OrderDetails.jsx";
 
 const linkPrefix = `http://localhost:4000`;
 
@@ -88,6 +89,7 @@ const App = () => {
               <Route path="/order/confirm" element={<ConfirmOrder />} />
               <Route path="/success" element={<OrderSuccess />} />
               <Route path="/orders" element={<MyOrders />} />
+              <Route path="/order/:id" element={<OrderDetails />} />
             </Route>
           </Routes>
           {/* Move Elements wrapping here */}

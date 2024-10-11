@@ -9,11 +9,9 @@ const cartSlice = createSlice({
     reducers: {
         addToCart: (state, action) => {
             const item = action.payload;
-
             const isItemExist = state.cartItems.find(
                 (i) => i.product === item.product
             );
-
             if (isItemExist) {
                 state.cartItems = state.cartItems.map((i) =>
                     i.product === isItemExist.product ? item : i
@@ -30,8 +28,11 @@ const cartSlice = createSlice({
         saveShippingInfo: (state, action) => {
             state.shippingInfo = action.payload;
         },
+        clearCart: (state) => {
+            state.cartItems = [];
+        },
     },
 });
 
-export const { addToCart, removeCartItem, saveShippingInfo } = cartSlice.actions;
+export const { addToCart, removeCartItem, saveShippingInfo, clearCart } = cartSlice.actions;
 export default cartSlice.reducer;

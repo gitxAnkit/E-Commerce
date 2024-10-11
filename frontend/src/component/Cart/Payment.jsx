@@ -23,7 +23,9 @@ import { useNavigate } from "react-router-dom";
 import ErrorBoundary from "../../ErrorBoundary.jsx";
 
 const Payment = () => {
-  const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
+  const { user } = useSelector((state) => state.user);
+  const userId = user._id;
+  const orderInfo = JSON.parse(sessionStorage.getItem(`orderInfo_${userId}`));
 
   const dispatch = useDispatch();
   const stripe = useStripe();
@@ -32,7 +34,6 @@ const Payment = () => {
   const navigate = useNavigate();
 
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
-  const { user } = useSelector((state) => state.user);
   const { error } = useSelector((state) => state.order);
 
   const paymentData = {
