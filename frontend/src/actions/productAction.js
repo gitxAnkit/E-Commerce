@@ -80,7 +80,7 @@ export const getAdminProduct = () => async (dispatch) => {
     try {
         dispatch(productsRequest());
 
-        const { data } = await axios.get(`${linkPrefix}/api/v1/admin/products`);
+        const { data } = await axios.get(`${linkPrefix}/api/v1/products`);
 
         dispatch(adminProductsSuccess(data.products));
     } catch (error) {

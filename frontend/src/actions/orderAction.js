@@ -18,6 +18,7 @@ import {
     orderDetailsSuccess,
     orderDetailsFail,
     clearErrors,
+    totalOrderAmount,
 } from "../redux/slices/orderSlice";
 import axios from "axios";
 
@@ -63,6 +64,7 @@ export const getAllOrders = () => async (dispatch) => {
         const { data } = await axios.get(`${linkPrefix}/api/v1/admin/orders`);
 
         dispatch(allOrdersSuccess(data.orders));
+        dispatch(totalOrderAmount(data.totalAmount));
     } catch (error) {
         dispatch(allOrdersFail(error.response.data.message));
     }

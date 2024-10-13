@@ -7,6 +7,7 @@ const initialState = {
     error: null,
     isUpdated: false,
     isDeleted: false,
+    totalAmount: 0,
 };
 
 const orderSlice = createSlice({
@@ -45,6 +46,9 @@ const orderSlice = createSlice({
         allOrdersFail: (state, action) => {
             state.loading = false;
             state.error = action.payload;
+        },
+        totalOrderAmount: (state, action) => {
+            state.totalAmount = action.payload;
         },
         updateOrderRequest: (state) => {
             state.loading = true;
@@ -113,6 +117,7 @@ export const {
     orderDetailsSuccess,
     orderDetailsFail,
     clearErrors,
+    totalOrderAmount
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

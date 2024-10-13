@@ -29,10 +29,10 @@ import ConfirmOrder from "./component/Cart/ConfirmOrder.jsx";
 import Payment from "./component/Cart/Payment.jsx";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import store from "./redux/store.js";
 import OrderSuccess from "./component/Cart/OrderSuccess.jsx";
 import MyOrders from "./component/Order/MyOrders.jsx";
 import OrderDetails from "./component/Order/OrderDetails.jsx";
+import Dashboard from "./component/Admin/Dashboard.jsx";
 
 const linkPrefix = `http://localhost:4000`;
 
@@ -80,7 +80,7 @@ const App = () => {
             <Route path="/password/reset/:token" element={<ResetPassword />} />
 
             {/* Protected Routes */}
-            <Route element={<ProtectedRoute />}>
+            <Route element={<ProtectedRoute isAdmin={false} />}>
               <Route path="/account" element={<Profile />} />
               <Route path="/me/update" element={<UpdateProfile />} />
               <Route path="/password/update" element={<UpdatePassword />} />
@@ -91,6 +91,11 @@ const App = () => {
               <Route path="/orders" element={<MyOrders />} />
               <Route path="/order/:id" element={<OrderDetails />} />
             </Route>
+            {/* Admin Routes */}
+            <Route element={<ProtectedRoute isAdmin={true} />}>
+              <Route path="/admin/dashboard" element={<Dashboard />} />
+              {/* Add other admin routes here */}
+            </Route>
           </Routes>
           {/* Move Elements wrapping here */}
           {stripeApiKey && (
@@ -100,6 +105,7 @@ const App = () => {
               </Routes>
             </Elements>
           )}
+
           <Footer />
         </ErrorBoundary>
         <ToastContainer
