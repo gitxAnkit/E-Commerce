@@ -1,20 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import Loader from "../layout/Loader/Loader";
+import { loadUser } from "../../actions/userAction";
 
 const ProtectedRoute = ({ isAdmin }) => {
   const { loading, isAuthenticated, user } = useSelector((state) => state.user);
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!loading) {
+    if (!isAuthenticated) {
+      dispatch(loadUser());
+    } else {
       setIsLoading(false);
     }
-  }, [loading]);
+  }, [dispatch, isAuthenticated]);
 
-  if (isLoading) {
+  useEffect(() => {
+    if (!loading && isAuthenticated) {
+      setIsLoading(false);
+    }
+  }, [loading, isAuthenticated]);
+
+  if (isLoading === true) {
     return (
       <div className="loading-spinner">
         <Loader />
@@ -22,7 +32,7 @@ const ProtectedRoute = ({ isAdmin }) => {
     );
   }
 
-  if (!isAuthenticated) {
+  if (isAuthenticated === false) {
     return <Navigate to="/login" replace state={{ from: location.pathname }} />;
   }
 
