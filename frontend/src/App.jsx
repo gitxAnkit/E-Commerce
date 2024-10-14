@@ -33,6 +33,8 @@ import OrderSuccess from "./component/Cart/OrderSuccess.jsx";
 import MyOrders from "./component/Order/MyOrders.jsx";
 import OrderDetails from "./component/Order/OrderDetails.jsx";
 import Dashboard from "./component/Admin/Dashboard.jsx";
+import ProductList from "./component/Admin/ProductList.jsx";
+import NewProduct from "./component/Admin/NewProduct.jsx";
 
 const linkPrefix = `http://localhost:4000`;
 
@@ -94,6 +96,9 @@ const App = () => {
             {/* Admin Routes */}
             <Route element={<ProtectedRoute isAdmin={true} />}>
               <Route path="/admin/dashboard" element={<Dashboard />} />
+              <Route path="/admin/products" element={<ProductList />} />
+              <Route path="/admin/product" element={<NewProduct />} />
+
               {/* Add other admin routes here */}
             </Route>
           </Routes>

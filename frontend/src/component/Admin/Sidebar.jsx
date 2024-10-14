@@ -11,9 +11,10 @@ import {
   ImportExport,
   ListAlt,
   People,
-  PostAdd,
+  PostAddSharp,
   RateReview,
 } from "@mui/icons-material";
+
 const Sidebar = () => {
   return (
     <div className="sidebar">
@@ -34,8 +35,11 @@ const Sidebar = () => {
             <Link to="/admin/products">
               <TreeItem
                 nodeId="2"
-                label="All"
-                icon={<PostAdd />}
+                label={
+                  <span>
+                    <PostAddSharp /> All
+                  </span>
+                }
                 itemId="products-all"
               />
             </Link>
@@ -43,8 +47,11 @@ const Sidebar = () => {
             <Link to="/admin/product">
               <TreeItem
                 nodeId="3"
-                label="Create"
-                icon={<Add />}
+                label={
+                  <span>
+                    <Add /> Create
+                  </span>
+                }
                 itemId="products-create"
               />
             </Link>

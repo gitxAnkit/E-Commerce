@@ -5,7 +5,7 @@ import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Doughnut, Line } from "react-chartjs-2";
 import { useSelector, useDispatch } from "react-redux";
-import { getAdminProduct, getProduct } from "../../actions/productAction";
+import { getAdminProduct } from "../../actions/productAction";
 import MetaData from "../layout/MetaData";
 
 // Registering ChartJS modules
