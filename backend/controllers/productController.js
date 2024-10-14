@@ -9,9 +9,9 @@ const handleCreateProduct = catchAsyncErrors(async (req, res, next) => {
     let images = [];
 
     if (typeof req.body.images === "string") {
-        images.push(req.body.images);
-    } else {
-        images = req.body.images;
+        images.push(req.body.images); // Single image
+    } else if (Array.isArray(req.body.images)) {
+        images = req.body.images; // Multiple images
     }
 
     const imagesLinks = [];
