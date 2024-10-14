@@ -2,19 +2,41 @@ const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const Product = require("../models/productModel");
 const ApiFeatures = require("../utils/apiFeatures");
 const ErrorHandler = require("../utils/errorHandler");
+const cloudinary = require("../utils/cloudinary");
 
 // create Product -- Admin
 const handleCreateProduct = catchAsyncErrors(async (req, res, next) => {
+    let images = [];
 
+    if (typeof req.body.images === "string") {
+        images.push(req.body.images);
+    } else {
+        images = req.body.images;
+    }
+
+    const imagesLinks = [];
+
+    for (let i = 0; i < images.length; i++) {
+        const result = await cloudinary.uploader.upload(images[i], {
+            folder: "zenith-mart/products",
+        });
+
+        imagesLinks.push({
+            public_id: result.public_id,
+            url: result.secure_url,
+        });
+    }
+
+    req.body.images = imagesLinks;
     req.body.user = req.user.id;
 
     const product = await Product.create(req.body);
 
     res.status(201).json({
         success: true,
-        product
-    })
-})
+        product,
+    });
+});
 
 const handleGetAllProducts = catchAsyncErrors(async (req, res) => {
 
@@ -44,6 +66,16 @@ const handleGetAllProducts = catchAsyncErrors(async (req, res) => {
         resultPerPage,
     });
 });
+// Get All Product (Admin)
+const getAdminProducts = catchAsyncErrors(async (req, res, next) => {
+    const products = await Product.find();
+
+    res.status(200).json({
+        success: true,
+        products,
+    });
+});
+
 
 const handleGetProductById = catchAsyncErrors(async (req, res, next) => {
 
@@ -205,5 +237,6 @@ module.exports = {
     handleGetProductById,
     createProductReview,
     getProductReviews,
-    deleteReview
+    deleteReview,
+    getAdminProducts
 }

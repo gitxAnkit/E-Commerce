@@ -11,7 +11,7 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
     // console.log("Avtar", req.body.avatar); // Check the value sent to Cloudinary
 
     const myCloud = await cloudinary.uploader.upload(req.body.avatar, {
-        folder: "zenith-mart",
+        folder: "zenith-mart/users",
         crop: "scale",
         width: 150,
         // height: 150,
