@@ -1,0 +1,85 @@
+.aboutSection {
+    height: 100vh;
+    width: 100vw;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  
+  .aboutSectionGradient {
+    background-image: linear-gradient(to bottom right, #4e51ff, #4a89bd);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+  }
+  
+  .aboutSectionContainer {
+    background-color: #fff;
+    width: 70%;
+    height: 70vh;
+    padding: 3rem;
+    box-shadow: -10px 10px 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+  }
+  
+  .aboutSectionContainer > h1 {
+    font-size: 3rem;
+    color: tomato;
+    margin-bottom: 2rem;
+  }
+  
+  .aboutSectionContainer > div {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .aboutSectionContainer2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .aboutSectionContainer2 > h2 {
+    font-size: 2rem;
+    color: rgba(0, 0, 0, 0.623);
+    margin-bottom: 1.5rem;
+  }
+  
+  .aboutSectionContainer2 > a {
+    margin: 0.5rem;
+  }
+  
+  .twitterSvgIcon {
+    color: #1da1f2;
+    font-size: 3rem;
+  }
+  
+  .instagramSvgIcon {
+    color: #e1306c;
+    font-size: 3rem;
+  }
+  
+  @media (max-width: 768px) {
+    .aboutSectionContainer {
+      width: 90%;
+      height: auto;
+    }
+  
+    .aboutSectionContainer > div {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .aboutSectionContainer2 > h2 {
+      font-size: 1.5rem;
+    }
+  }
+  
