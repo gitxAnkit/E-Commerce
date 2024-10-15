@@ -19,10 +19,8 @@ const ProductList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { error, products } = useSelector((state) => state.products);
-  const { error: deleteError, isDeleted } = useSelector(
-    (state) => state.productDetails
-  );
+  const { error, products, isDeleted } = useSelector((state) => state.products);
+  const { error: deleteError } = useSelector((state) => state.productDetails);
 
   const deleteProductHandler = useCallback(
     (id) => {
@@ -44,7 +42,7 @@ const ProductList = () => {
 
     if (isDeleted) {
       toast.success("Product Deleted Successfully");
-      navigate("/admin/dashboard");
+      // navigate("/admin/dashboard");
       dispatch(resetDeleteProduct());
     }
 

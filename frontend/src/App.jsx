@@ -35,7 +35,13 @@ import OrderDetails from "./component/Order/OrderDetails.jsx";
 import Dashboard from "./component/Admin/Dashboard.jsx";
 import ProductList from "./component/Admin/ProductList.jsx";
 import NewProduct from "./component/Admin/NewProduct.jsx";
-
+import UpdateProduct from "./component/Admin/UpdateProduct.jsx";
+import ProductReviews from "./component/Admin/ProductReview.jsx";
+import OrderList from "./component/Admin/OrderList.jsx";
+import ProcessOrder from "./component/Admin/ProcessOrder.jsx";
+import UsersList from "./component/Admin/UsersList.jsx";
+import UpdateUser from "./component/Admin/UpdateUser.jsx";
+import AccessDenied from "./component/Route/AccessDenied.jsx";
 const linkPrefix = `http://localhost:4000`;
 
 // Configure axios defaults
@@ -80,6 +86,7 @@ const App = () => {
             <Route path="/login" element={<LoginSignUp />} />
             <Route path="/password/forgot" element={<ForgotPassword />} />
             <Route path="/password/reset/:token" element={<ResetPassword />} />
+            <Route path="/access-denied" element={<AccessDenied />} />
 
             {/* Protected Routes */}
             <Route element={<ProtectedRoute isAdmin={false} />}>
@@ -98,8 +105,12 @@ const App = () => {
               <Route path="/admin/dashboard" element={<Dashboard />} />
               <Route path="/admin/products" element={<ProductList />} />
               <Route path="/admin/product" element={<NewProduct />} />
-
-              {/* Add other admin routes here */}
+              <Route path="/admin/product/:id" element={<UpdateProduct />} />
+              <Route path="/admin/reviews" element={<ProductReviews />} />
+              <Route path="/admin/orders" element={<OrderList />} />
+              <Route path="/admin/order/:id" element={<ProcessOrder />} />
+              <Route path="/admin/users" element={<UsersList />} />
+              <Route path="/admin/user/:id" element={<UpdateUser />} />
             </Route>
           </Routes>
           {/* Move Elements wrapping here */}

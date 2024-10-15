@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import Loader from "../layout/Loader/Loader";
 import { loadUser } from "../../actions/userAction";
-
 const ProtectedRoute = ({ isAdmin }) => {
   const { loading, isAuthenticated, user } = useSelector((state) => state.user);
   const location = useLocation();
