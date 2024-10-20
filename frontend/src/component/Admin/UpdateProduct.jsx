@@ -100,7 +100,6 @@ const UpdateProduct = () => {
 
   const updateProductImagesChange = (e) => {
     const files = Array.from(e.target.files);
-    // setOldImages([]);
     files.forEach((file) => {
       const reader = new FileReader();
 

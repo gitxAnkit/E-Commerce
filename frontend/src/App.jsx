@@ -45,12 +45,7 @@ import AccessDenied from "./component/Route/AccessDenied.jsx";
 import Contact from "./component/Contact/Contact.jsx";
 import About from "./component/About/About.jsx";
 import NotFound from "./component/layout/NotFound/NotFound.jsx";
-
-const linkPrefix = `http://localhost:4000`;
-
-// Configure axios defaults
-axios.defaults.withCredentials = true; // Added to handle cookies
-axios.defaults.baseURL = linkPrefix;
+import api from "./axiosInstance.js";
 
 const App = () => {
   const { user, isAuthenticated } = useSelector((state) => state.user);
@@ -59,7 +54,7 @@ const App = () => {
   const [stripeApiKey, setStripeApiKey] = useState("");
 
   const getStripeApiKey = async () => {
-    const { data } = await axios.get("/api/v1/stripeapikey");
+    const { data } = await api.get("/stripeapikey");
     setStripeApiKey(data.stripeApiKey);
   };
 
@@ -107,7 +102,6 @@ const App = () => {
               <Route path="/orders" element={<MyOrders />} />
               <Route path="/order/:id" element={<OrderDetails />} />
             </Route>
-            {/* Admin Routes */}
             <Route element={<ProtectedRoute isAdmin={true} />}>
               <Route path="/admin/dashboard" element={<Dashboard />} />
               <Route path="/admin/products" element={<ProductList />} />
@@ -120,7 +114,6 @@ const App = () => {
               <Route path="/admin/user/:id" element={<UpdateUser />} />
             </Route>
           </Routes>
-          {/* Move Elements wrapping here */}
           {stripeApiKey && (
             <Elements stripe={loadStripe(stripeApiKey)}>
               <Routes>

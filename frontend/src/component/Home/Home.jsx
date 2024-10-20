@@ -21,10 +21,6 @@ const Home = () => {
     dispatch(getProduct());
   }, [dispatch, error]);
 
-  useEffect(() => {
-    console.log("Products: ", products);
-  }, [products]);
-
   if (loading) {
     return <Loader />;
   }

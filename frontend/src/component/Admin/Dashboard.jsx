@@ -47,7 +47,6 @@ const Dashboard = () => {
   const { products } = useSelector((state) => state.products);
   const { orders, totalAmount } = useSelector((state) => state.order);
   const { users, loading } = useSelector((state) => state.user);
-  console.log("Users: ", users, "Loading: ", loading);
   let outOfStock = 0;
 
   products &&

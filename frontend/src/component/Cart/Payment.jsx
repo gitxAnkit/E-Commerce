@@ -12,8 +12,6 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-
-import axios from "axios";
 import "./Payment.css";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import EventIcon from "@mui/icons-material/Event";
@@ -21,7 +19,7 @@ import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import { createOrder, clearOrderErrors } from "../../actions/orderAction.js";
 import { useNavigate } from "react-router-dom";
 import ErrorBoundary from "../../ErrorBoundary.jsx";
-
+import api from "../../axiosInstance.js";
 const Payment = () => {
   const { user } = useSelector((state) => state.user);
   const userId = user._id;
@@ -60,11 +58,7 @@ const Payment = () => {
           "Content-Type": "application/json",
         },
       };
-      const { data } = await axios.post(
-        "http://localhost:4000/api/v1/payment/process",
-        paymentData,
-        config
-      );
+      const { data } = await api.post("/payment/process", paymentData, config);
 
       const client_secret = data.client_secret;
 

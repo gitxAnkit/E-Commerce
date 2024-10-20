@@ -28,13 +28,13 @@ const Sidebar = () => {
       </Link>
       <Link>
         <SimpleTreeView
-          defaultCollapseIcon={<ExpandMore />}
-          defaultExpandIcon={<ImportExport />}
+          collapseicon={<ExpandMore />}
+          expandicon={<ImportExport />}
         >
-          <TreeItem nodeId="1" label="Products" itemId="products">
+          <TreeItem nodeid="1" label="Products" itemId="products">
             <Link to="/admin/products">
               <TreeItem
-                nodeId="2"
+                noded="2"
                 label={
                   <span>
                     <PostAddSharp /> All
@@ -46,7 +46,7 @@ const Sidebar = () => {
 
             <Link to="/admin/product">
               <TreeItem
-                nodeId="3"
+                nodeid="3"
                 label={
                   <span>
                     <Add /> Create

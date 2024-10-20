@@ -7,9 +7,9 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useNavigate } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import { logout } from "../../../actions/userAction";
+import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
 
 const UserOptions = ({ user }) => {
@@ -89,7 +89,6 @@ const UserOptions = ({ user }) => {
           />
         ))}
       </SpeedDial>
-      <ToastContainer />
     </Fragment>
   );
 };

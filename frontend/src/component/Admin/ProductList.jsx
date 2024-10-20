@@ -14,6 +14,7 @@ import SideBar from "./Sidebar";
 import { Delete, Edit } from "@mui/icons-material";
 import { resetDeleteProduct } from "../../redux/slices/product/productsSlice";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ProductList = () => {
   const dispatch = useDispatch();
@@ -42,7 +43,6 @@ const ProductList = () => {
 
     if (isDeleted) {
       toast.success("Product Deleted Successfully");
-      // navigate("/admin/dashboard");
       dispatch(resetDeleteProduct());
     }
 

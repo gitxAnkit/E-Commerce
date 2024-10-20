@@ -1,3 +1,4 @@
+import api from "../axiosInstance";
 import {
     createOrderRequest,
     createOrderSuccess,
@@ -20,9 +21,6 @@ import {
     clearErrors,
     totalOrderAmount,
 } from "../redux/slices/orderSlice";
-import axios from "axios";
-
-const linkPrefix = `http://localhost:4000`;
 
 // Create Order Action
 export const createOrder = (order) => async (dispatch) => {
@@ -35,7 +33,7 @@ export const createOrder = (order) => async (dispatch) => {
             },
         };
 
-        const { data } = await axios.post(`${linkPrefix}/api/v1/order/new`, order, config);
+        const { data } = await api.post(`/order/new`, order, config);
         dispatch(createOrderSuccess(data));
 
     } catch (error) {
@@ -48,7 +46,7 @@ export const myOrders = () => async (dispatch) => {
     try {
         dispatch(myOrdersRequest());
 
-        const { data } = await axios.get(`${linkPrefix}/api/v1/orders/me`);
+        const { data } = await api.get(`/orders/me`);
 
         dispatch(myOrdersSuccess(data.orders));
     } catch (error) {
@@ -61,7 +59,7 @@ export const getAllOrders = () => async (dispatch) => {
     try {
         dispatch(allOrdersRequest());
 
-        const { data } = await axios.get(`${linkPrefix}/api/v1/admin/orders`);
+        const { data } = await api.get(`/admin/orders`);
 
         dispatch(allOrdersSuccess(data.orders));
         dispatch(totalOrderAmount(data.totalAmount));
@@ -81,7 +79,7 @@ export const updateOrder = (id, order) => async (dispatch) => {
             },
         };
 
-        const { data } = await axios.put(`${linkPrefix}/api/v1/admin/order/${id}`, order, config);
+        const { data } = await api.put(`/admin/order/${id}`, order, config);
 
         dispatch(updateOrderSuccess(data.success));
     } catch (error) {
@@ -94,7 +92,7 @@ export const deleteOrder = (id) => async (dispatch) => {
     try {
         dispatch(deleteOrderRequest());
 
-        const { data } = await axios.delete(`${linkPrefix}/api/v1/admin/order/${id}`);
+        const { data } = await api.delete(`/admin/order/${id}`);
 
         dispatch(deleteOrderSuccess(data.success));
     } catch (error) {
@@ -107,7 +105,7 @@ export const getOrderDetails = (id) => async (dispatch) => {
     try {
         dispatch(orderDetailsRequest());
 
-        const { data } = await axios.get(`${linkPrefix}/api/v1/order/${id}`);
+        const { data } = await api.get(`/order/${id}`);
 
         dispatch(orderDetailsSuccess(data.order));
     } catch (error) {

@@ -1,5 +1,4 @@
-
-import axios from "axios";
+import api from "../axiosInstance";
 import {
     loginRequest,
     loginSuccess,
@@ -43,7 +42,6 @@ import {
     clearErrors,
 } from '../redux/slices/userSlice';
 
-const linkPrefix = `http://localhost:4000`;
 // Login
 export const login = (email, password) => async (dispatch) => {
     try {
@@ -51,11 +49,7 @@ export const login = (email, password) => async (dispatch) => {
 
         const config = { headers: { "Content-Type": "application/json" } };
 
-        const { data } = await axios.post(
-            `${linkPrefix}/api/v1/login`,
-            { email, password },
-            config
-        );
+        const { data } = await api.post(`/login`, { email, password }, config);
 
         dispatch(loginSuccess(data.user));
     } catch (error) {
@@ -70,7 +64,7 @@ export const register = (userData) => async (dispatch) => {
 
         const config = { headers: { "Content-Type": "multipart/form-data" } };
 
-        const { data } = await axios.post(`${linkPrefix}/api/v1/register`, userData, config);
+        const { data } = await api.post(`/register`, userData, config);
 
         dispatch(registerUserSuccess(data.user));
     } catch (error) {
@@ -83,7 +77,7 @@ export const loadUser = () => async (dispatch) => {
     try {
         dispatch(loadUserRequest());
 
-        const { data } = await axios.get(`${linkPrefix}/api/v1/me`);
+        const { data } = await api.get(`/me`);
 
         dispatch(loadUserSuccess(data.user));
     } catch (error) {
@@ -94,7 +88,7 @@ export const loadUser = () => async (dispatch) => {
 // Logout User
 export const logout = () => async (dispatch) => {
     try {
-        await axios.get(`${linkPrefix}/api/v1/logout`);
+        await api.get(`/logout`);
         dispatch(logoutSuccess());
     } catch (error) {
         dispatch(logoutFail(error.response.data.message));
@@ -108,8 +102,7 @@ export const updateProfile = (userData) => async (dispatch) => {
 
         const config = { headers: { "Content-Type": "multipart/form-data" } };
 
-        const { data } = await axios.put(`${linkPrefix}/api/v1/me/update`, userData, config);
-        console.log("Data: ", data);
+        const { data } = await api.put(`/me/update`, userData, config);
         dispatch(updateProfileSuccess(data.success));
     } catch (error) {
         dispatch(updateProfileFail(error.response.data.message));
@@ -123,11 +116,7 @@ export const updatePassword = (passwords) => async (dispatch) => {
 
         const config = { headers: { "Content-Type": "application/json" } };
 
-        const { data } = await axios.put(
-            `${linkPrefix}/api/v1/password/update`,
-            passwords,
-            config
-        );
+        const { data } = await api.put(`/password/update`, passwords, config);
 
         dispatch(updatePasswordSuccess(data.success));
     } catch (error) {
@@ -142,7 +131,7 @@ export const forgotPassword = (email) => async (dispatch) => {
 
         const config = { headers: { "Content-Type": "application/json" } };
 
-        const { data } = await axios.post(`${linkPrefix}/api/v1/password/forgot`, email, config);
+        const { data } = await api.post(`/password/forgot`, email, config);
 
         dispatch(forgotPasswordSuccess(data.message));
     } catch (error) {
@@ -157,11 +146,7 @@ export const resetPassword = (token, passwords) => async (dispatch) => {
 
         const config = { headers: { "Content-Type": "application/json" } };
 
-        const { data } = await axios.put(
-            `${linkPrefix}/api/v1/password/reset/${token}`,
-            passwords,
-            config
-        );
+        const { data } = await api.put(`/password/reset/${token}`, passwords, config);
 
         dispatch(resetPasswordSuccess(data.success));
     } catch (error) {
@@ -169,11 +154,11 @@ export const resetPassword = (token, passwords) => async (dispatch) => {
     }
 };
 
-// get All Users
+// Get All Users
 export const getAllUsers = () => async (dispatch) => {
     try {
         dispatch(allUsersRequest());
-        const { data } = await axios.get(`${linkPrefix}/api/v1/admin/users`);
+        const { data } = await api.get(`/admin/users`);
 
         dispatch(allUsersSuccess(data.users));
     } catch (error) {
@@ -181,11 +166,11 @@ export const getAllUsers = () => async (dispatch) => {
     }
 };
 
-// get  User Details
+// Get User Details
 export const getUserDetails = (id) => async (dispatch) => {
     try {
         dispatch(userDetailsRequest());
-        const { data } = await axios.get(`${linkPrefix}/api/v1/admin/user/${id}`);
+        const { data } = await api.get(`/admin/user/${id}`);
 
         dispatch(userDetailsSuccess(data.user));
     } catch (error) {
@@ -200,11 +185,7 @@ export const updateUser = (id, userData) => async (dispatch) => {
 
         const config = { headers: { "Content-Type": "application/json" } };
 
-        const { data } = await axios.put(
-            `${linkPrefix}/api/v1/admin/user/${id}`,
-            userData,
-            config
-        );
+        const { data } = await api.put(`/admin/user/${id}`, userData, config);
 
         dispatch(updateUserSuccess(data.success));
     } catch (error) {
@@ -217,7 +198,7 @@ export const deleteUser = (id) => async (dispatch) => {
     try {
         dispatch(deleteUserRequest());
 
-        const { data } = await axios.delete(`${linkPrefix}/api/v1/admin/user/${id}`);
+        const { data } = await api.delete(`/admin/user/${id}`);
 
         dispatch(deleteUserSuccess(data));
     } catch (error) {
@@ -226,6 +207,6 @@ export const deleteUser = (id) => async (dispatch) => {
 };
 
 // Clearing Errors
-export const clearUserErrors = () => async (dispatch) => {
+export const clearUserErrors = () => (dispatch) => {
     dispatch(clearErrors());
 };

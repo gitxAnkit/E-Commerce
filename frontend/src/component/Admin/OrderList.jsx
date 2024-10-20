@@ -1,9 +1,9 @@
 import React, { Fragment, useEffect } from "react";
-import { DataGrid } from "@mui/x-data-grid"; // Updated MUI import
+import { DataGrid } from "@mui/x-data-grid";
 import "./ProductList.css";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "@mui/material"; // Updated MUI import
+import { Button } from "@mui/material";
 import MetaData from "../layout/MetaData";
 import SideBar from "./Sidebar";
 import {
@@ -13,11 +13,12 @@ import {
 } from "../../actions/orderAction";
 import { deleteOrderReset } from "../../redux/slices/orderSlice";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import ErrorBoundary from "../../ErrorBoundary";
 import { Delete, Edit } from "@mui/icons-material";
 const OrderList = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // useNavigate instead of history
+  const navigate = useNavigate();
 
   const { error, orders, isDeleted, deleteError } = useSelector(
     (state) => state.order

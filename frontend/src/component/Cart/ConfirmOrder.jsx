@@ -29,7 +29,6 @@ const ConfirmOrder = () => {
       tax,
       totalPrice,
     };
-    console.log("ID:", userId);
     sessionStorage.setItem(`orderInfo_${userId}`, JSON.stringify(data));
     navigate("/process/payment");
   };

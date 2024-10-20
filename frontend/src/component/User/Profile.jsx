@@ -13,7 +13,6 @@ const Profile = () => {
     if (isAuthenticated === false) {
       navigate("/login");
     }
-    console.log(user._id);
   }, [isAuthenticated]);
   return (
     <Fragment>

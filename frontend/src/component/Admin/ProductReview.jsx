@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { DataGrid } from "@mui/x-data-grid"; // Updated MUI DataGrid import
+import { DataGrid } from "@mui/x-data-grid";
 import "./ProductReviews.css";
 import { useSelector, useDispatch } from "react-redux";
 import {

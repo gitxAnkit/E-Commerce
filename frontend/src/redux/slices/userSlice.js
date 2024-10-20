@@ -89,7 +89,6 @@ const userSlice = createSlice({
             state.error = action.payload;
         },
         updateProfileReset: (state) => {
-            console.log("updateProfileReset triggered");
             state.isUpdated = false;
         },
 
