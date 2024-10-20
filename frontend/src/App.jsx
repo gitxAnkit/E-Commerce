@@ -44,18 +44,15 @@ import AccessDenied from "./component/Route/AccessDenied.jsx";
 import Contact from "./component/Contact/Contact.jsx";
 import About from "./component/About/About.jsx";
 import NotFound from "./component/layout/NotFound/NotFound.jsx";
-import api from "./axiosInstance.js";
+import Loader from "./component/layout/Loader/Loader.jsx";
+import { getStripeApiKey } from "./redux/slices/stripeSlice.js";
 
 const App = () => {
   const { user, isAuthenticated } = useSelector((state) => state.user);
+  const { stripeApiKey, loading } = useSelector((state) => state.stripe);
+  const [stripePromise, setStripePromise] = useState(null);
+
   const dispatch = useDispatch();
-
-  const [stripeApiKey, setStripeApiKey] = useState("");
-
-  const getStripeApiKey = async () => {
-    const { data } = await api.get("/stripeapikey");
-    setStripeApiKey(data.stripeApiKey);
-  };
 
   useEffect(() => {
     WebFont.load({
@@ -64,11 +61,19 @@ const App = () => {
       },
     });
     dispatch(loadUser());
-    getStripeApiKey();
+    dispatch(getStripeApiKey());
   }, [dispatch]);
 
-  window.addEventListener("contextmenu", (e) => e.preventDefault());
+  useEffect(() => {
+    if (stripeApiKey) {
+      setStripePromise(loadStripe(stripeApiKey));
+    }
+  }, [stripeApiKey]);
 
+  window.addEventListener("contextmenu", (e) => e.preventDefault());
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <HelmetProvider>
       <Router>
@@ -87,7 +92,6 @@ const App = () => {
             <Route path="/access-denied" element={<AccessDenied />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/about" element={<About />} />
-            <Route path="*" element={<NotFound />} />
 
             {/* Protected Routes */}
             <Route element={<ProtectedRoute isAdmin={false} />}>
@@ -100,6 +104,16 @@ const App = () => {
               <Route path="/success" element={<OrderSuccess />} />
               <Route path="/orders" element={<MyOrders />} />
               <Route path="/order/:id" element={<OrderDetails />} />
+              {stripePromise && (
+                <Route
+                  path="/process/payment"
+                  element={
+                    <Elements stripe={loadStripe(stripeApiKey)}>
+                      <Payment />
+                    </Elements>
+                  }
+                />
+              )}
             </Route>
             <Route element={<ProtectedRoute isAdmin={true} />}>
               <Route path="/admin/dashboard" element={<Dashboard />} />
@@ -112,14 +126,9 @@ const App = () => {
               <Route path="/admin/users" element={<UsersList />} />
               <Route path="/admin/user/:id" element={<UpdateUser />} />
             </Route>
+
+            <Route path="*" element={<NotFound />} />
           </Routes>
-          {stripeApiKey && (
-            <Elements stripe={loadStripe(stripeApiKey)}>
-              <Routes>
-                <Route path="/process/payment" element={<Payment />} />
-              </Routes>
-            </Elements>
-          )}
 
           <Footer />
         </ErrorBoundary>

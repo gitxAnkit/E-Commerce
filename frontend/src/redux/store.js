@@ -10,7 +10,7 @@ import productDetailsSlice from './slices/product/productDetailsSlice';
 import cartSlice from './slices/cartSlice';
 import orderSlice from './slices/orderSlice';
 import userSlice from './slices/userSlice';
-
+import stripeSlice from './slices/stripeSlice';
 // Preload state from localStorage
 const preloadedState = {
     cart: {
@@ -34,6 +34,7 @@ const store = configureStore({
         cart: cartSlice,
         order: orderSlice,
         user: userSlice,
+        stripe: stripeSlice
     },
     devTools: process.env.NODE_ENV !== 'production',
     preloadedState,
