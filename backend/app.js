@@ -5,11 +5,14 @@ const errorMiddleware = require("./middlewares/error");
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
+const dotenv = require('dotenv');
+dotenv.config({ path: "./config/.env" });
 
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+
+app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
-app.use(bodyParser.json()); // For parsing JSON bodies
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(fileUpload());
 

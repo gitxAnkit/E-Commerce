@@ -14,11 +14,9 @@ import {
     updateProfileRequest,
     updateProfileSuccess,
     updateProfileFail,
-    updateProfileReset,
     updatePasswordRequest,
     updatePasswordSuccess,
     updatePasswordFail,
-    updatePasswordReset,
     forgotPasswordRequest,
     forgotPasswordSuccess,
     forgotPasswordFail,
@@ -34,11 +32,9 @@ import {
     deleteUserRequest,
     deleteUserSuccess,
     deleteUserFail,
-    deleteUserReset,
     updateUserRequest,
     updateUserSuccess,
     updateUserFail,
-    updateUserReset,
     clearErrors,
 } from '../redux/slices/userSlice';
 

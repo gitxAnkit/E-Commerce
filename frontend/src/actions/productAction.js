@@ -8,8 +8,6 @@ import {
     deleteProductSuccess,
     updateProductSuccess,
     productOperationFail,
-    resetDeleteProduct,
-    resetUpdateProduct,
     clearErrors as clearProductErrors,
 } from '../redux/slices/product/productsSlice';
 
@@ -17,7 +15,6 @@ import {
     deleteReviewRequest,
     deleteReviewSuccess,
     deleteReviewFail,
-    resetDeleteReview,
     clearErrors as clearReviewErrors,
 } from '../redux/slices/product/reviewSlice';
 
@@ -32,7 +29,6 @@ import {
     newReviewRequest,
     newReviewSuccess,
     newReviewFail,
-    resetNewReview,
     clearErrors as clearNewReviewErrors,
 } from '../redux/slices/product/newReviewSlice';
 
@@ -40,7 +36,6 @@ import {
     newProductRequest,
     newProductSuccess,
     newProductFail,
-    resetNewProduct,
     clearErrors as clearNewProductErrors,
 } from '../redux/slices/product/newProductSlice';
 

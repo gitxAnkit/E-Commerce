@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import WebFont from "webfontloader";
-import axios from "axios";
 import Header from "./component/layout/Header/Header";
 import Footer from "./component/layout/Footer/Footer";
 import Home from "./component/Home/Home";
