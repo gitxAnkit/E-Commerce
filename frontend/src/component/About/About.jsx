@@ -18,7 +18,7 @@ const About = () => {
           <div>
             <Avatar
               style={{ width: "10vmax", height: "10vmax", margin: "2vmax 0" }}
-              src="https://your-image-url.com" // Placeholder for your logo or image
+              src="https://res.cloudinary.com/dlbcv2oft/image/upload/v1729023353/ankit__xjwniz.jpg" // Placeholder for your logo or image
               alt="Zenith-Mart Logo"
             />
             <Typography component="h2">Zenith-Mart</Typography>
@@ -35,16 +35,12 @@ const About = () => {
 
           <div className="aboutSectionContainer2">
             <Typography component="h2">Follow Us</Typography>
-            <a
-              href="https://twitter.com/zenithmart"
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href="https://twitter.com/" target="_blank" rel="noreferrer">
               <Twitter className="twitterSvgIcon" />
             </a>
 
             <a
-              href="https://www.instagram.com/zenithmart/"
+              href="https://www.instagram.com/"
               target="_blank"
               rel="noreferrer"
             >

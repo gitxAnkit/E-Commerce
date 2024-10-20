@@ -1,6 +1,7 @@
 import React from "react";
 import { ReactNavbar } from "overlay-navbar";
-import logo from "../../../images/logo.png";
+import logo from "../../../images/logo2.png";
+
 import { FaSearch, FaUser, FaShoppingCart } from "react-icons/fa"; // Added missing icons
 
 const options = {
@@ -8,8 +9,8 @@ const options = {
   logo,
   logoWidth: "20vmax",
   navColor1: "white",
-  logoHoverSize: "10px",
-  logoHoverColor: "#eb4034",
+  logoHoverSize: "1px",
+  logoHoverColor: "#ffffff",
   link1Text: "Home",
   link2Text: "Products",
   link3Text: "Contact",

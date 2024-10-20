@@ -3,7 +3,7 @@ import { TreeItem } from "@mui/x-tree-view/TreeItem";
 import { SimpleTreeView } from "@mui/x-tree-view/SimpleTreeView";
 import { Link } from "react-router-dom";
 import "./Sidebar.css";
-import logo from "../../images/logo.png";
+import logo from "../../images/logo2.png";
 import {
   Add,
   Dashboard,

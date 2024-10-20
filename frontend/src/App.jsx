@@ -42,6 +42,10 @@ import ProcessOrder from "./component/Admin/ProcessOrder.jsx";
 import UsersList from "./component/Admin/UsersList.jsx";
 import UpdateUser from "./component/Admin/UpdateUser.jsx";
 import AccessDenied from "./component/Route/AccessDenied.jsx";
+import Contact from "./component/Contact/Contact.jsx";
+import About from "./component/About/About.jsx";
+import NotFound from "./component/layout/NotFound/NotFound.jsx";
+
 const linkPrefix = `http://localhost:4000`;
 
 // Configure axios defaults
@@ -87,6 +91,9 @@ const App = () => {
             <Route path="/password/forgot" element={<ForgotPassword />} />
             <Route path="/password/reset/:token" element={<ResetPassword />} />
             <Route path="/access-denied" element={<AccessDenied />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/about" element={<About />} />
+            <Route path="*" element={<NotFound />} />
 
             {/* Protected Routes */}
             <Route element={<ProtectedRoute isAdmin={false} />}>
