@@ -1,49 +1,96 @@
-# Zenith-Mart E-commerce Project
+# ZenithMart 🛍️
 
-Zenith-Mart is a full-featured e-commerce web application built using the MERN stack (MongoDB, Express.js, React, and Node.js). This project allows users to browse products, manage their cart, place orders, and handle payments seamlessly. Admins can manage products, orders, and users efficiently through the admin dashboard.
+ZenithMart is a modern e-commerce platform built to provide a seamless shopping experience. This full-stack application features a responsive frontend and a robust backend API.
 
-## Table of Contents
+## 🌐 Live Demo
 
-- [Features](#features)
-- [Technologies](#technologies)
-- [Setup Instructions](#setup-instructions)
-- [Environment Variables](#environment-variables)
-- [Deployment](#deployment)
-- [Screenshots](#screenshots)
-- [Contact](#contact)
+- Frontend: [https://calm-elf-6ca540.netlify.app](https://calm-elf-6ca540.netlify.app)
+- Backend API: [https://zenith-mart.onrender.com](https://zenith-mart.onrender.com)
 
-## Features
+## 🖼️ Screenshots
 
-- **User Authentication**: Secure user registration and login using JWT and cookies.
-- **Product Management**: Users can browse products, apply filters, and search by category, price, and ratings.
-- **Shopping Cart**: Add products to the cart, manage quantities, and checkout.
-- **Payment Integration**: Stripe API is integrated to handle payments.
-- **Order Management**: Users can track their order history, and admins can manage and update orders.
-- **Admin Dashboard**: Admins have access to features such as creating, updating, and deleting products and managing users.
+[Note: Please add your screenshots here with descriptions]
 
-## Technologies
+Example format:
+```markdown
+### Homepage
+![Homepage](path_to_homepage_screenshot.png)
+*Description of the homepage features*
 
-- **Frontend**: React (with Vite), Redux Toolkit, Material UI
-- **Backend**: Node.js, Express.js, MongoDB
-- **Payment**: Stripe API
-- **Authentication**: JWT and cookies
+### Product Catalog
+![Product Catalog](path_to_catalog_screenshot.png)
+*Description of the product catalog features*
+```
 
-## Live Demo
+## ✨ Features
 
-- **Frontend**: [Zenith-Mart Frontend](https://calm-elf-6ca540.netlify.app)
-- **Backend**: [Zenith-Mart Backend](https://zenith-mart.onrender.com)
+- User authentication and authorization
+- Product catalog with search and filtering
+- Shopping cart functionality
+- Secure payment processing
+- Order tracking
+- Responsive design for mobile and desktop
+- Admin dashboard for inventory management
 
-## Setup Instructions
+## 🛠️ Tech Stack
+
+### Frontend
+- React.js
+- Redux for state management
+- CSS for styling
+- Axios for API calls
+
+### Backend
+- Node.js
+- Express.js
+- MongoDB
+- JWT for authentication
+
+## 🚀 Getting Started
 
 ### Prerequisites
-
-- Node.js (v14+)
+- Node.js (v14 or higher)
 - MongoDB
-- Stripe Account for payment integration
+- npm or yarn
 
-### Backend Setup
+### Installation
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/E-commerce.git
-   cd E-commerce/backend
+1. Clone the repository
+```bash
+git clone https://github.com/gitxAnkit/E-commerce.git
+```
+
+2. Install frontend dependencies
+```bash
+cd frontend
+npm install
+```
+
+3. Install backend dependencies
+```bash
+cd backend
+npm install
+```
+
+4. Set up environment variables
+```bash
+# Backend .env
+PORT=5000
+MONGODB_URI=your_mongodb_uri
+JWT_SECRET=your_jwt_secret
+
+# Frontend .env
+REACT_APP_API_URL=your_backend_url
+```
+
+5. Run the development servers
+```bash
+# Backend
+npm run dev
+
+# Frontend
+npm start
+```
+
+---
+⭐️ If you found this project helpful, please consider giving it a star!
