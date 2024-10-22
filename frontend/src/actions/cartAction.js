@@ -2,7 +2,7 @@ import api from "../axiosInstance";
 import { addToCart, removeCartItem, saveShippingInfo } from "../redux/slices/cartSlice";
 // Add to Cart
 export const addItemsToCart = (id, quantity) => async (dispatch) => {
-    const { data } = api.get(`/product/${id}`);
+    const { data } = await api.get(`/product/${id}`);
 
     const cartItem = {
         product: data.product._id,
