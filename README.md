@@ -11,10 +11,9 @@ ZenithMart is a modern e-commerce platform built to provide a seamless shopping 
 
 ### Homepage
 
-![Homepage](./assets/home1.png.png)
+![](./assets/home1.png.png)
 ![](./assets/home2.png)
 ![](./assets/home3.png)
-_Description of the homepage features_
 
 ### Product Catalog
 
